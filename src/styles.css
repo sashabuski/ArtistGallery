@@ -1,0 +1,77 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  background: #0e0e0e;
+  color: white;
+  height: 100vh;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: flex-end; /* align scrollbox to the right */
+  align-items: stretch;      /* full viewport height */
+}
+
+/* Scrollbox on right */
+.scrollbox {
+  width: 66.6666vw;
+  height: calc(100vh - 32px); /* leave 20px top and bottom */
+  margin-top: 16px;
+  margin-bottom: 16px;
+  margin-right: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #111;
+  position: relative;
+}
+.scroll-spacer {
+  height: 0; /* will be set dynamically */
+}
+
+.viewport {
+  position: sticky;
+  top: 0;
+  height: 100%;
+  overflow: hidden;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+ 
+  padding-right: 12px;
+  height: 100%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  will-change: transform;
+}
+
+.cell {
+  height: 14vw;
+ 
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* colors */
+.col-0 .cell { background: #ff6b6b; }
+.col-1 .cell { background: #ffd43b; color:#000; }
+.col-2 .cell { background: #69db7c; color:#000; }
+.col-3 .cell { background: #4dabf7; }
+.col-4 .cell { background: #b197fc; }
+.col-5 .cell { background: #ffa8a8; color:#000; }

@@ -1,0 +1,13 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  background: #0e0e0e;
+  display: flex;
+  justify-content: flex-end; /* push scrollbox to right */
+  align-items: stretch;
+}
