@@ -1,11 +1,11 @@
-import React from "react";
-
 interface CellProps {
-  label: string;
+  src: string;
 }
 
-const Cell: React.FC<CellProps> = ({ label }) => {
-  return <div className="cell">{label}</div>;
-};
+const Cell: React.FC<CellProps> = ({ src }) => (
+  <div className="cell">
+    <img src={src} alt="artwork" />
+  </div>
+);
 
 export default Cell;

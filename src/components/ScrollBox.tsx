@@ -4,7 +4,7 @@ import Grid from "./Grid";
 const GAP = 16;
 
 const ROW_PRESETS: Record<number, number[]> = {
-  6: [14, 9, 18, 11, 7, 15],
+  6: [14, 9, 18, 5, 7, 15],
   5: [13, 12, 21, 14, 10],
   4: [20, 15, 18, 17],
   3: [32, 15, 23],

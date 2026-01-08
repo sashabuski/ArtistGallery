@@ -59,14 +59,23 @@ body {
 
 .cell {
 aspect-ratio: 6 / 8;
+ overflow: hidden;
  
-  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   font-size: 13px;
 }
+
+.cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* fills the cell completely, keeps aspect ratio */
+  object-position: center;
+  display: block;
+}
+
 
 /* colors */
 .col-0 .cell { background: #ff6b6b; }

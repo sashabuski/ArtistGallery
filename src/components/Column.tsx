@@ -4,6 +4,7 @@ import Cell from "./Cell";
 interface ColumnProps {
   columnIndex: number;
   rows: number;
+  startIndex: number;
 }
 const imageModules = import.meta.glob('../assets/ARTWORK/*.{png,jpg,jpeg,svg}', { eager: true });
 
@@ -17,15 +18,15 @@ const images: string[] = Object.values(imageModules).map((module: any) => module
  * for transform updates.
  */
 const Column = forwardRef<HTMLDivElement, ColumnProps>(
-  ({ columnIndex, rows }, ref) => {
+  ({ columnIndex, rows, startIndex }, ref) => {
     return (
       <div ref={ref} className={`column col-${columnIndex}`}>
-        {Array.from({ length: rows }).map((_, r) => (
-          <Cell
-            key={r}
-            label={`C${columnIndex + 1} / R${r + 1}`}
-          />
-        ))}
+        {Array.from({ length: rows }).map((_, r) => {
+          const imgIndex = startIndex + r; // unique index across all columns
+          const src = images[imgIndex];   // no wrapping
+
+          return <Cell key={r} src={src} />;
+        })}
       </div>
     );
   }
