@@ -5,6 +5,11 @@ interface ColumnProps {
   columnIndex: number;
   rows: number;
 }
+const imageModules = import.meta.glob('../assets/ARTWORK/*.{png,jpg,jpeg,svg}', { eager: true });
+
+// Convert to an array of URLs
+const images: string[] = Object.values(imageModules).map((module: any) => module.default);
+
 
 /**
  * forwardRef is REQUIRED because ScrollBox

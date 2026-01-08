@@ -1,26 +1,43 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Grid from "./Grid";
 
-// const ROW_HEIGHT = 140;
 const GAP = 16;
 
-const columnRows = [14, 9, 18, 11, 7, 15];
+const ROW_PRESETS: Record<number, number[]> = {
+  6: [14, 9, 18, 11, 7, 15],
+  5: [13, 12, 21, 14, 10],
+  4: [20, 15, 18, 17],
+  3: [32, 15, 23],
+  2: [25, 45],
+  1: [70]
+};
+
+const getColumnCount = () => {
+  const w = window.innerWidth;
+  if (w >= 1800) return 6;
+  if (w >= 1500) return 5;
+  if (w >= 1200) return 4;
+  if (w >= 900) return 3;
+  if (w >= 700) return 2;
+  return 1;
+};
 
 const ScrollBox: React.FC = () => {
   const scrollboxRef = useRef<HTMLDivElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
 
-  const columnRefs = useRef(
+  const [columnCount, setColumnCount] = useState(getColumnCount());
+  const columnRows = ROW_PRESETS[columnCount];
+
+  // Refs need to match the number of columns
+  const [columnRefs, setColumnRefs] = useState(
     columnRows.map(() => React.createRef<HTMLDivElement>())
   );
 
-  /*
-  const columns = useRef(
-    columnRows.map((rows) => ({
-      height: rows * ROW_HEIGHT + (rows - 1) * GAP
-    }))
-  );
-  */
+  // Update refs whenever columnRows changes
+  useEffect(() => {
+    setColumnRefs(columnRows.map(() => React.createRef<HTMLDivElement>()));
+  }, [columnCount]);
 
   const getRowHeight = () => {
     const cell = document.querySelector(".cell") as HTMLDivElement | null;
@@ -64,51 +81,51 @@ const ScrollBox: React.FC = () => {
     const scrollRange = Math.max(tallest - viewportHeight, 0);
     const progress = scrollRange === 0 ? 0 : scrollbox.scrollTop / scrollRange;
 
-    columnRefs.current.forEach((ref, i) => {
+    columnRefs.forEach((ref, i) => {
       const el = ref.current;
       if (!el) return;
 
-      const maxOffset = Math.max(
-        columnHeights[i] - viewportHeight,
-        0
-      );
-
+      const maxOffset = Math.max(columnHeights[i] - viewportHeight, 0);
       el.style.transform = `translateY(${-progress * maxOffset}px)`;
     });
   };
 
   useEffect(() => {
     // Initial setup
-    updateSpacer();
-    updateColumns();
+    requestAnimationFrame(() => {
+      updateSpacer();
+      updateColumns();
+    });
 
     const scrollbox = scrollboxRef.current;
     if (!scrollbox) return;
 
-    // Scroll listener
     scrollbox.addEventListener("scroll", updateColumns);
 
-    // Resize listener
     const onResize = () => {
-      updateSpacer();
-      updateColumns();
+      setColumnCount(getColumnCount());
+
+      requestAnimationFrame(() => {
+        updateSpacer();
+        updateColumns();
+      });
     };
 
     window.addEventListener("resize", onResize);
 
-    // Cleanup
     return () => {
       scrollbox.removeEventListener("scroll", updateColumns);
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [columnCount, columnRefs]); // re-run when columnRefs change
 
   return (
     <div className="scrollbox" ref={scrollboxRef}>
       <div className="viewport">
         <Grid
           columnRows={columnRows}
-          columnRefs={columnRefs.current}
+          columnRefs={columnRefs}
+          columns={columnCount}
         />
       </div>
       <div className="scroll-spacer" ref={spacerRef} />

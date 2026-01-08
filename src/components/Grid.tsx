@@ -4,11 +4,15 @@ import Column from "./Column";
 interface GridProps {
   columnRows: number[];
   columnRefs: React.RefObject<HTMLDivElement | null>[];
+  columns: number;
 }
 
-const Grid: React.FC<GridProps> = ({ columnRows, columnRefs }) => {
+const Grid: React.FC<GridProps> = ({ columnRows, columnRefs, columns }) => {
   return (
-    <div className="grid">
+    <div
+      className="grid"
+      style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}
+    >
       {columnRows.map((rows, i) => (
         <Column
           key={i}
