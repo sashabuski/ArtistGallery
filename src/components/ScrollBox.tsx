@@ -14,11 +14,11 @@ const ROW_PRESETS: Record<number, number[]> = {
 
 const getColumnCount = () => {
   const w = window.innerWidth;
-  if (w >= 1800) return 6;
-  if (w >= 1500) return 5;
-  if (w >= 1200) return 4;
-  if (w >= 900) return 3;
-  if (w >= 700) return 2;
+  if (w >= 2000) return 6;
+  if (w >= 1600) return 5;
+  if (w >= 1400) return 4;
+  if (w >= 1100) return 3;
+  if (w >= 900) return 2;
   return 1;
 };
 
@@ -120,15 +120,18 @@ const ScrollBox: React.FC = () => {
   }, [columnCount, columnRefs]); // re-run when columnRefs change
 
   return (
-    <div className="scrollbox" ref={scrollboxRef}>
-      <div className="viewport">
-        <Grid
-          columnRows={columnRows}
-          columnRefs={columnRefs}
-          columns={columnCount}
-        />
-      </div>
-      <div className="scroll-spacer" ref={spacerRef} />
+   <div
+        className={`scrollbox ${columnCount <= 1 ? "small" : "large"}`}
+        ref={scrollboxRef}
+        >
+        <div className="viewport">
+            <Grid
+            columnRows={columnRows}
+            columnRefs={columnRefs}
+            columns={columnCount}
+            />
+        </div>
+        <div className="scroll-spacer" ref={spacerRef} />
     </div>
   );
 };

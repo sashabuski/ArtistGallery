@@ -4,28 +4,116 @@
   padding: 0;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
 body {
   font-family: system-ui, sans-serif;
   background: #ffffff;
-  color: white;
-  height: 100vh;
   overflow: hidden;
   display: flex;
-  justify-content: flex-end;
-  align-items: stretch;      
+}
+
+
+#root {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.pageRight {
+ flex: 0 0 auto;   
+  display: flex;
+}
+
+.pageLeft {
+ flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  margin-top: 80px;
+  margin-left: 4.8vw;
+  margin-bottom: 50px;
+  padding-right: 50px;
+}
+
+.subCaps{
+ font-family: "SurveyorReg", sans-serif;
+ font-size: calc(18px + 0.2vw);
+ color: #333134;
+ margin-top: 10px;
+ margin-bottom: 30px;
+}
+
+.homeLinks{
+ font-family: "SurveyorLight", sans-serif;
+ font-size: calc(24px + 0.3vw);
+ color: #333134;
+ text-decoration: underline;
+ text-decoration-thickness: 1px;
+ text-underline-offset: calc(10px + 0.1vw);
+  text-decoration-color: #c4c0c7;
+ margin-top: 6px;
+ cursor: pointer;
+}
+
+.bottomLinksBox{
+    margin-top: auto;
+    display: flex;
+    gap: 12px;
+    flex-direction: row;
+    flex-wrap: wrap; 
+}
+
+.bottomLink{
+ font-family: "SurveyorLight", sans-serif;
+ font-size: calc(18px + 0.4vw);
+ color: #333134;
+ text-decoration: underline;
+ text-decoration-thickness: 1px;
+ text-underline-offset: 8px;
+ text-decoration-color: #c4c0c7;
+ cursor: pointer;
+}
+
+.creditText{
+color: #7C7282;
+font-weight: 600;
+margin-top: 20px;
+}
+
+
+.ArtistName{
+ font-family: "SurveyorReg", sans-serif;
+ font-size: calc(45px + 3vw);
+
+ line-height: 0.7;
+font-weight: 100;
+color: #333134;
 }
 
 .scrollbox {
-  width: 66.6666vw;
-  height: calc(100vh - 32px); 
-  margin-top: 16px;
-  margin-bottom: 16px;
-  margin-right: 12px;
+ 
+  height: calc(100vh - 32px);
+  margin: 16px 12px 16px 0; /* top right bottom left */
   overflow-y: auto;
   overflow-x: hidden;
   background: #ffffff;
-  position: relative;
 }
+
+.scrollbox.small {
+  width: 50vw;
+  max-width: 50vw;
+}
+
+.scrollbox.large {
+  width: 66.6666vw;
+  max-width: 66.6666vw;
+}
+
+
 .scroll-spacer {
   height: 0;
 }
@@ -43,8 +131,7 @@ body {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 16px;
- 
-  padding-right: 12px;
+  padding-right: 0px;
   height: 100%;
 }
 
@@ -94,10 +181,13 @@ aspect-ratio: 6 / 8;
 .title {
   margin-top: 20px;
   margin-left: 20px;
-  font-size: 20px;
+   margin-right: 20px;
+  font-size: 30px;
   color: white;
   opacity: 0;
   transition: opacity 0.2s ease;
+  font-family: "SurveyorLight", sans-serif;
+  font-weight: 100;
 }
 
 .cell:hover .title {
@@ -107,16 +197,35 @@ aspect-ratio: 6 / 8;
 .details{
     position: absolute;
     bottom: 0px;
-    color: white;
+    color: #ABABAB;
     margin-left: 20px;
     margin-bottom: 20px;
     opacity: 0;
     transition: opacity 0.2s ease;
+    font-size: 15px;
 }
 
 .cell:hover .details {
   opacity: 1;
 }
+
+
+@font-face {
+  font-family: "SurveyorLight";
+  src: url("/src/assets/fonts/SurveyorLight.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SurveyorReg";
+  src: url("/src/assets/fonts/SurveyorReg.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 .col-0 .cell { background: #ff6b6b; }
 .col-1 .cell { background: #ffd43b; color:#000; }
