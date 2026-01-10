@@ -1,16 +1,31 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./routes/Home";
 import ArtworkPage from "./routes/ArtworkPage";
 
-function App() {
+function AppRoutes() {
+  const location = useLocation();
+  const background = location.state?.background;
+
   return (
-    <BrowserRouter>
-      <Routes>
+    <>
+    
+      <Routes location={background || location}>
         <Route path="/" element={<Home />} />
-        <Route path="/artwork/:id" element={<ArtworkPage />} />
       </Routes>
-    </BrowserRouter>
+
+      {background && (
+        <Routes>
+          <Route path="/artwork/:id" element={<ArtworkPage />} />
+        </Routes>
+      )}
+    </>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
+}

@@ -226,6 +226,90 @@ aspect-ratio: 6 / 8;
 }
 
 
+.artworkOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  z-index: 1000;
+background-color: rgba(0,0,0,0.5);
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.artworkOverlay.visible {
+  opacity: 1;
+  
+}
+
+/* Backdrop stays static */
+.artworkBackdrop {
+  width: 16.6666%;
+  cursor: pointer;
+  
+}
+
+.artworkPanel {
+  width: 83.3333%;
+  background: white; 
+  height: 100%; 
+  box-sizing: border-box;
+  transform: translateX(40px);
+  transition: transform 400ms ease, opacity 300ms ease;
+  opacity: 0;
+}
+
+.artworkOverlay.visible .artworkPanel {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+
+.artworkContainer {
+  display: flex;            
+  flex-direction: column;   
+  width: 100%;
+  max-height: 100%;        
+ 
+  box-sizing: border-box;
+  gap: 10px;             
+}
+
+.artworkPageTitle {
+  font-family: "SurveyorLight", sans-serif;
+  font-size: calc(60px + 0.5vw);
+ 
+  color: #333134;
+  text-align: left;               /* left-align text */
+}
+
+
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.artworkHeaderContainer {
+  display: flex;
+  justify-content: space-between; /* pushes children to left and right edges */
+  align-items: center;            /* vertically center the text */
+  width: 100%;                    /* fill the container width */
+  margin-bottom: 20px;            /* spacing below header */
+  box-sizing: border-box;
+}
+
+.artworkMeta {
+  font-family: "SurveyorLight", sans-serif;
+  font-size: calc(16px + 0.3vw);
+  color: #666;
+  text-align: right;              /* right-align text */
+}
+
 @font-face {
   font-family: "SurveyorLight";
   src: url("/src/assets/fonts/SurveyorLight.otf") format("opentype");
@@ -241,6 +325,53 @@ aspect-ratio: 6 / 8;
   font-style: normal;
   font-display: swap;
 }
+
+
+.artworkScrollContent {
+  overflow-y: auto;           
+  flex: 1 1 auto;             
+  display: flex;
+  flex-direction: column;
+  gap: 20px;   
+  padding-left: 20vw;
+  padding-right: 20vw;   
+  padding-top: 50px;
+ 
+            
+}
+
+.artworkBottomPanel {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 40px;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.97);
+  z-index: 1000;
+}
+
+
+.artworkScrollContent img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: 100%;
+  display: block;
+}
+
+.artworkBottomPanel button {
+    font-family: "SurveyorLight", sans-serif;
+    font-size: calc(10px + 0.3vw);
+    padding: 8px 16px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0);
+    border: 0px solid #ccc;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+
 
 
 .col-0 .cell { background: #ff6b6b; }
