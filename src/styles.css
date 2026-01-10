@@ -56,7 +56,10 @@ body {
  text-underline-offset: calc(10px + 0.1vw);
   text-decoration-color: #c4c0c7;
  margin-top: 6px;
+ display: inline-block;  
  cursor: pointer;
+ align-self: flex-start;
+ width: fit-content;
 }
 
 .bottomLinksBox{
@@ -142,6 +145,15 @@ color: #333134;
   will-change: transform;
 }
 
+.sign{
+    position: fixed;
+    width: calc(100px + 20vw);
+    top:0;
+    left:0;
+    opacity: 0.1;
+    z-index: -1;
+}
+
 .cell {
 aspect-ratio: 6 / 8;
  overflow: hidden;
@@ -161,6 +173,10 @@ aspect-ratio: 6 / 8;
   display: block;
   transition: transform 0.2s ease;
   cursor: pointer;
+
+    will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .cell:hover img {
