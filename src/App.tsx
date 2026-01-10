@@ -8,11 +8,13 @@ function AppRoutes() {
 
   return (
     <>
-    
+      {/* Always define all routes normally */}
       <Routes location={background || location}>
         <Route path="/" element={<Home />} />
+        <Route path="/artwork/:id" element={<ArtworkPage />} />
       </Routes>
 
+      {/* Render modal overlay only if there's a background */}
       {background && (
         <Routes>
           <Route path="/artwork/:id" element={<ArtworkPage />} />

@@ -328,16 +328,13 @@ background-color: rgba(0,0,0,0.5);
 
 
 .artworkScrollContent {
-  overflow-y: auto;           
-  flex: 1 1 auto;             
-  display: flex;
-  flex-direction: column;
-  gap: 20px;   
-  padding-left: 20vw;
-  padding-right: 20vw;   
+  overflow-y: auto;
+  flex: 1 1 auto;
+  display: block; 
+  padding-left: calc(25vw - 100px);
+  padding-right: calc(25vw - 100px);
   padding-top: 50px;
- 
-            
+  
 }
 
 .artworkBottomPanel {
@@ -349,7 +346,19 @@ background-color: rgba(0,0,0,0.5);
   box-sizing: border-box;
   background: rgba(255, 255, 255, 0.97);
   z-index: 1000;
+  border-top: 1px solid #ccc;
 }
+
+.artworkImage {
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+/* optional: fade out/fade in on imageSrc change */
+.artworkImage.fade-out {
+  opacity: 0;
+}
+
 
 
 .artworkScrollContent img {
@@ -358,12 +367,15 @@ background-color: rgba(0,0,0,0.5);
   height: auto;
   width: 100%;
   display: block;
+  margin-bottom: 40px;
+   cursor: zoom-in; 
 }
 
 .artworkBottomPanel button {
-    font-family: "SurveyorLight", sans-serif;
-    font-size: calc(10px + 0.3vw);
-    padding: 8px 16px;
+    color: #9D8260;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 8px 0px;
     cursor: pointer;
     background: rgba(0, 0, 0, 0);
     border: 0px solid #ccc;
@@ -371,12 +383,31 @@ background-color: rgba(0,0,0,0.5);
     transition: background 0.2s ease;
 }
 
+.prevButton {
+  display: flex;
+  flex-direction: column;  /* stack text vertically */
+  align-items: flex-start; /* left-align all text */
+  gap: 4px;                /* optional spacing between main + subtitle */
+}
+
+.nextButton {
+  display: flex;
+  flex-direction: column;  /* stack text vertically */
+  align-items: flex-end;   /* right-align all text */
+  gap: 4px;
+}
+.navTitle{
+    font-weight: normal;
+    font-size: 23px;
+    font-family: "SurveyorLight", sans-serif;
+    color: #333134 ;
+}
 
 
 
-.col-0 .cell { background: #ff6b6b; }
-.col-1 .cell { background: #ffd43b; color:#000; }
-.col-2 .cell { background: #69db7c; color:#000; }
-.col-3 .cell { background: #4dabf7; }
-.col-4 .cell { background: #b197fc; }
-.col-5 .cell { background: #ffa8a8; color:#000; }
+.col-0 .cell { background: #ffffff; }
+.col-1 .cell { background: #ffffff; color:#000; }
+.col-2 .cell { background: #ffffff; color:#000; }
+.col-3 .cell { background: #ffffff; }
+.col-4 .cell { background: #ffffff; }
+.col-5 .cell { background: #ffffff; color:#000; }
