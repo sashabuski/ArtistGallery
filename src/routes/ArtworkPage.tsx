@@ -1,4 +1,4 @@
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ArtworkContent from "../components/ArtworkContent";
 
@@ -25,53 +25,42 @@ const getTitleFromSrc = (src?: string) => {
 
 const ArtworkPage = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { id } = useParams();
+
+  // 👇 Index is now STATE (not route-driven)
+  const [currentIndex, setCurrentIndex] = useState(() =>
+    images.findIndex((src) => getIdFromSrc(src) === id)
+  );
+
   const [visible, setVisible] = useState(false);
 
-  // Find current artwork index
-  const currentIndex = images.findIndex((src) => getIdFromSrc(src) === id);
+  const imageSrc = images[currentIndex];
+  const prevImage = images[currentIndex - 1];
+  const nextImage = images[currentIndex + 1];
 
-  const imageSrc = currentIndex !== -1 ? images[currentIndex] : undefined;
-  const prevImage = currentIndex > 0 ? images[currentIndex - 1] : undefined;
-  const nextImage =
-    currentIndex < images.length - 1 ? images[currentIndex + 1] : undefined;
-
-  // Animate overlay fade/slide in **every time the artwork ID changes**
+  // Animate overlay only once on mount
   useEffect(() => {
-    setVisible(false); // hide immediately
-    const frame = requestAnimationFrame(() => setVisible(true)); // fade/slide in
+    const frame = requestAnimationFrame(() => setVisible(true));
     return () => cancelAnimationFrame(frame);
-  }, [id]);
+  }, []);
 
-  // Close overlay
+  // Close overlay (real navigation)
   const close = () => {
     setVisible(false);
     setTimeout(() => navigate(-1), 350);
   };
 
-  // Navigate to previous artwork
+  // Prev / Next — NO ROUTING
   const goToPrev = () => {
-    if (!prevImage) return;
-    const prevId = getIdFromSrc(prevImage);
-    if (!prevId) return;
-
-    navigate(`/artwork/${encodeURIComponent(prevId)}`, {
-      state: { background: location.state?.background || location },
-      replace: true,
-    });
+    if (currentIndex > 0) {
+      setCurrentIndex((i) => i - 1);
+    }
   };
 
-  // Navigate to next artwork
   const goToNext = () => {
-    if (!nextImage) return;
-    const nextId = getIdFromSrc(nextImage);
-    if (!nextId) return;
-
-    navigate(`/artwork/${encodeURIComponent(nextId)}`, {
-      state: { background: location.state?.background || location },
-      replace: true,
-    });
+    if (currentIndex < images.length - 1) {
+      setCurrentIndex((i) => i + 1);
+    }
   };
 
   return (
@@ -79,7 +68,6 @@ const ArtworkPage = () => {
       {/* Backdrop clicks close overlay */}
       <div className="artworkBackdrop" onClick={close} />
 
-      {/* Render the artwork content */}
       <ArtworkContent
         imageSrc={imageSrc}
         onClose={close}
