@@ -1,4 +1,3 @@
-import React from "react";
 import sign from "../assets/sign.png";
 
 const HomeInfo = () => {

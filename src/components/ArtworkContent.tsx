@@ -11,8 +11,7 @@ interface ArtworkContentProps {
 }
 
 const ArtworkContent: React.FC<ArtworkContentProps> = ({
-  imageSrc,
-  onClose,
+  imageSrc,  
   onNext,
   onPrev,
   prevTitle,
