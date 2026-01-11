@@ -1,31 +1,45 @@
 import { forwardRef } from "react";
 import Cell from "./Cell";
+import artworks from "../data/artworks.json";
+
+const imageModules = import.meta.glob('../assets/ARTWORK/*.{png,jpg,jpeg,svg}', { eager: true });
+const imageMap: Record<string, string> = {};
+Object.entries(imageModules).forEach(([path, mod]: any) => {
+  const filename = path.split("/").pop();
+  if (filename) imageMap[filename] = mod.default;
+});
 
 interface ColumnProps {
   columnIndex: number;
   rows: number;
   startIndex: number;
 }
-const imageModules = import.meta.glob('../assets/ARTWORK/*.{png,jpg,jpeg,svg}', { eager: true });
 
-// Convert to an array of URLs
-const images: string[] = Object.values(imageModules).map((module: any) => module.default);
-
-
-/**
- * forwardRef is REQUIRED because ScrollBox
- * needs direct access to the column DOM node
- * for transform updates.
- */
 const Column = forwardRef<HTMLDivElement, ColumnProps>(
   ({ columnIndex, rows, startIndex }, ref) => {
     return (
       <div ref={ref} className={`column col-${columnIndex}`}>
         {Array.from({ length: rows }).map((_, r) => {
-          const imgIndex = startIndex + r; // unique index across all columns
-          const src = images[imgIndex];   // no wrapping
+          const artIndex = startIndex + r;
+          const artwork = artworks[artIndex];
+          if (!artwork) return null;
+      
+          const fileName = artwork.file || artwork.title + ".jpg";
+          const src = imageMap[fileName];
+          if (!src) {
+            console.warn(`Image not found for ${fileName}`);
+            return null;
+          }
 
-          return <Cell key={r} src={src} />;
+          return (
+            <Cell
+              key={r}
+              src={src}
+              title={artwork.title}
+              dimension={artwork.dimension}
+              medium={artwork.medium}
+            />
+          );
         })}
       </div>
     );

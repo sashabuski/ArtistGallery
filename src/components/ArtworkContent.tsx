@@ -8,23 +8,26 @@ interface ArtworkContentProps {
   onPrev?: () => void;
   prevTitle?: string;
   nextTitle?: string;
+  title?: string;
+  dimension?: string;
+  medium?: string;
 }
 
 const ArtworkContent: React.FC<ArtworkContentProps> = ({
-  imageSrc,  
+  imageSrc,
   onNext,
   onPrev,
   prevTitle,
   nextTitle,
+  title = "Untitled",
+  dimension = "",
+  medium = "",
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [fullscreen, setFullscreen] = useState(false);
 
-  // Scroll to top when navigating
   const scrollToTop = () => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    scrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleNext = () => {
@@ -37,36 +40,11 @@ const ArtworkContent: React.FC<ArtworkContentProps> = ({
     onPrev?.();
   };
 
-  // Extract artwork metadata from filename
-  let title = "Untitled";
-  let dimension = "";
-  let medium = "";
-
-  if (imageSrc) {
- const filename = decodeURIComponent(imageSrc.split("/").pop() || "");
-
-    let nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
-
-    nameWithoutExt = nameWithoutExt.replace(/-[A-Za-z0-9]{8,}$/, "");
-
-    const parts = nameWithoutExt.split("_");
-    title = parts[0] || "Untitled";
-    dimension = parts[1] || "";
-    medium = parts[2] || "";
-
-    if (dimension) {
-    dimension = dimension.replace(/(\d+)/g, '$1"');
-    }
-  }
-
   return (
     <>
-      {/* Main artwork panel */}
       <div className="artworkPanel">
         <div className="artworkContainer">
           <div className="artworkScrollContent" ref={scrollRef}>
-            
-            {/* Header */}
             <div className="artworkHeaderContainer">
               <div className="artworkPageTitle">{title}</div>
               {(dimension || medium) && (
@@ -78,22 +56,26 @@ const ArtworkContent: React.FC<ArtworkContentProps> = ({
               )}
             </div>
 
-            {/* Image with crossfade */}
             <div
               className="artworkImageContainer"
-              style={{ position: "relative", width: "100%", minHeight: "400px" }}
+              style={{ position: "relative", width: "100%", minHeight: 400 }}
             >
               <AnimatePresence mode="wait">
                 {imageSrc ? (
                   <motion.img
-                    key={imageSrc} 
+                    key={imageSrc}
                     src={imageSrc}
                     alt={title}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    style={{ width: "100%", height: "auto", display: "block", cursor: "zoom-in" }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      display: "block",
+                      cursor: "zoom-in",
+                    }}
                     onClick={() => setFullscreen(true)}
                   />
                 ) : (
@@ -109,7 +91,6 @@ const ArtworkContent: React.FC<ArtworkContentProps> = ({
               </AnimatePresence>
             </div>
 
-            {/* Bottom Panel */}
             <div className="artworkBottomPanel">
               <button className="prevButton" onClick={handlePrev} disabled={!onPrev}>
                 ← PREVIOUS
@@ -125,7 +106,6 @@ const ArtworkContent: React.FC<ArtworkContentProps> = ({
         </div>
       </div>
 
-      {/* Fullscreen overlay — outside .artworkPanel for true full-screen */}
       <AnimatePresence>
         {fullscreen && imageSrc && (
           <motion.div
@@ -155,11 +135,7 @@ const ArtworkContent: React.FC<ArtworkContentProps> = ({
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.1 }}
-              style={{
-                width: "100vw",
-                height: "100vh",
-                objectFit: "contain",
-              }}
+              style={{ width: "100vw", height: "100vh", objectFit: "contain" }}
             />
           </motion.div>
         )}

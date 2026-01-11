@@ -2,21 +2,20 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 interface CellProps {
   src: string;
+  title: string;
+  dimension: string;
+  medium: string;
 }
 
-const Cell: React.FC<CellProps> = ({ src }) => {
+const Cell: React.FC<CellProps> = ({ src, title, dimension, medium }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const filename = decodeURIComponent(src.split("/").pop() || "");
-    let nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
-    nameWithoutExt = nameWithoutExt.replace(/-[A-Za-z0-9]{8,}$/, "");
-    const [title = "Untitled", dimension = "", medium = ""] = nameWithoutExt.split("_");
   return (
     <div
       className="cell"
       onClick={() =>
-        navigate(`/artwork/${nameWithoutExt}`, {
+        navigate(`/artwork/${title}`, {
           state: { background: location },
         })
       }

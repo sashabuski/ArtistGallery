@@ -29,12 +29,10 @@ const ScrollBox: React.FC = () => {
   const [columnCount, setColumnCount] = useState(getColumnCount());
   const columnRows = ROW_PRESETS[columnCount];
 
-  // Refs need to match the number of columns
   const [columnRefs, setColumnRefs] = useState(
     columnRows.map(() => React.createRef<HTMLDivElement>())
   );
 
-  // Update refs whenever columnRows changes
   useEffect(() => {
     setColumnRefs(columnRows.map(() => React.createRef<HTMLDivElement>()));
   }, [columnCount]);
@@ -91,7 +89,7 @@ const ScrollBox: React.FC = () => {
   };
 
   useEffect(() => {
-    // Initial setup
+    
     requestAnimationFrame(() => {
       updateSpacer();
       updateColumns();
@@ -117,7 +115,7 @@ const ScrollBox: React.FC = () => {
       scrollbox.removeEventListener("scroll", updateColumns);
       window.removeEventListener("resize", onResize);
     };
-  }, [columnCount, columnRefs]); // re-run when columnRefs change
+  }, [columnCount, columnRefs]); 
 
   return (
    <div

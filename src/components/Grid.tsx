@@ -7,13 +7,13 @@ interface GridProps {
 }
 
 const Grid: React.FC<GridProps> = ({ columnRows, columnRefs, columns }) => {
-  let globalIndex = 0; // tracks which image to use
+  let globalIndex = 0; 
 
   return (
     <div className="grid" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
       {columnRows.map((rows, i) => {
         const startIndex = globalIndex;
-        globalIndex += rows; // increment for next column
+        globalIndex += rows; 
         return (
           <Column
             key={i}

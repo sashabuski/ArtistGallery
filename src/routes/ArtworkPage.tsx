@@ -1,80 +1,76 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ArtworkContent from "../components/ArtworkContent";
+import artworks from "../data/artworks.json";
 
-const imageModules = import.meta.glob(
-  "../assets/ARTWORK/*.{png,jpg,jpeg,svg}",
-  { eager: true }
-);
+const imageModules = import.meta.glob("../assets/ARTWORK/*.{jpg,png,jpeg,svg}", { eager: true });
+const imagesMap: Record<string, string> = {};
+for (const path in imageModules) {
+  const filename = path.split("/").pop()!;
+  imagesMap[filename] = (imageModules[path] as any).default;
+}
 
-const images: string[] = Object.values(imageModules).map(
-  (module: any) => module.default
-);
-
-// Helpers to extract ID and title
-const getIdFromSrc = (src?: string) => {
-  if (!src) return undefined;
-  const filename = decodeURIComponent(src.split("/").pop() || "");
-  return filename.replace(/\.[^/.]+$/, "");
-};
-
-const getTitleFromSrc = (src?: string) => {
-  const id = getIdFromSrc(src);
-  return id ? id.split("_")[0] : undefined;
-};
-
-const ArtworkPage = () => {
+const ArtworkPage: React.FC<{ onClose?: () => void }> = ({ onClose }) => {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // 👇 Index is now STATE (not route-driven)
-  const [currentIndex, setCurrentIndex] = useState(() =>
-    images.findIndex((src) => getIdFromSrc(src) === id)
+  const initialIndex = artworks.findIndex(
+    (art) => art.file.replace(/\.[^/.]+$/, "") === id
   );
-
+  const [currentIndex, setCurrentIndex] = useState(
+    initialIndex >= 0 ? initialIndex : 0
+  );
   const [visible, setVisible] = useState(false);
 
-  const imageSrc = images[currentIndex];
-  const prevImage = images[currentIndex - 1];
-  const nextImage = images[currentIndex + 1];
+  const currentArtwork = artworks[currentIndex];
+  const prevArtwork = artworks[currentIndex - 1];
+  const nextArtwork = artworks[currentIndex + 1];
+  const imageSrc = currentArtwork ? imagesMap[currentArtwork.file] : undefined;
 
-  // Animate overlay only once on mount
   useEffect(() => {
     const frame = requestAnimationFrame(() => setVisible(true));
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  // Close overlay (real navigation)
+  useEffect(() => {
+    if (currentArtwork) {
+      navigate(
+        `/artwork/${currentArtwork.file.replace(/\.[^/.]+$/, "")}`,
+        {
+          replace: true, 
+        }
+      );
+    }
+  }, [currentIndex]);
+
   const close = () => {
     setVisible(false);
-    setTimeout(() => navigate(-1), 350);
+    setTimeout(() => {
+      onClose ? onClose() : navigate("/", { replace: true });
+    }, 350);
   };
 
-  // Prev / Next — NO ROUTING
   const goToPrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((i) => i - 1);
-    }
+    if (currentIndex > 0) setCurrentIndex((i) => i - 1);
   };
 
   const goToNext = () => {
-    if (currentIndex < images.length - 1) {
-      setCurrentIndex((i) => i + 1);
-    }
+    if (currentIndex < artworks.length - 1) setCurrentIndex((i) => i + 1);
   };
 
   return (
     <div className={`artworkOverlay ${visible ? "visible" : ""}`}>
-      {/* Backdrop clicks close overlay */}
       <div className="artworkBackdrop" onClick={close} />
-
       <ArtworkContent
         imageSrc={imageSrc}
         onClose={close}
-        onPrev={prevImage ? goToPrev : undefined}
-        onNext={nextImage ? goToNext : undefined}
-        prevTitle={getTitleFromSrc(prevImage)}
-        nextTitle={getTitleFromSrc(nextImage)}
+        onPrev={prevArtwork ? goToPrev : undefined}
+        onNext={nextArtwork ? goToNext : undefined}
+        prevTitle={prevArtwork?.title}
+        nextTitle={nextArtwork?.title}
+        title={currentArtwork?.title}
+        dimension={currentArtwork?.dimension}
+        medium={currentArtwork?.medium}
       />
     </div>
   );
