@@ -43,12 +43,20 @@ const ArtworkContent: React.FC<ArtworkContentProps> = ({
   let medium = "";
 
   if (imageSrc) {
-    const filename = decodeURIComponent(imageSrc.split("/").pop() || "");
-    const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
+ const filename = decodeURIComponent(imageSrc.split("/").pop() || "");
+
+    let nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
+
+    nameWithoutExt = nameWithoutExt.replace(/-[A-Za-z0-9]{8,}$/, "");
+
     const parts = nameWithoutExt.split("_");
     title = parts[0] || "Untitled";
     dimension = parts[1] || "";
     medium = parts[2] || "";
+
+    if (dimension) {
+    dimension = dimension.replace(/(\d+)/g, '$1"');
+    }
   }
 
   return (

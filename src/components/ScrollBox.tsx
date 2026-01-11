@@ -14,11 +14,11 @@ const ROW_PRESETS: Record<number, number[]> = {
 
 const getColumnCount = () => {
   const w = window.innerWidth;
-  if (w >= 2000) return 6;
-  if (w >= 1600) return 5;
-  if (w >= 1400) return 4;
-  if (w >= 1100) return 3;
-  if (w >= 900) return 2;
+  if (w >= 1700) return 6;
+  if (w >= 1450) return 5;
+  if (w >= 1200) return 4;
+  if (w >= 900) return 3;
+  if (w >= 800) return 2;
   return 1;
 };
 

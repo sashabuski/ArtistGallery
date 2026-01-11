@@ -9,10 +9,9 @@ const Cell: React.FC<CellProps> = ({ src }) => {
   const location = useLocation();
 
   const filename = decodeURIComponent(src.split("/").pop() || "");
-  const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
-  const [title = "Untitled", dimension = "", medium = ""] =
-    nameWithoutExt.split("_");
-
+    let nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
+    nameWithoutExt = nameWithoutExt.replace(/-[A-Za-z0-9]{8,}$/, "");
+    const [title = "Untitled", dimension = "", medium = ""] = nameWithoutExt.split("_");
   return (
     <div
       className="cell"

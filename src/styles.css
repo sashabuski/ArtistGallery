@@ -33,15 +33,15 @@ body {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  margin-top: 80px;
+  margin-top: 70px;
   margin-left: 4.8vw;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
   padding-right: 50px;
 }
 
 .subCaps{
  font-family: "SurveyorReg", sans-serif;
- font-size: calc(18px + 0.2vw);
+ font-size: calc(15px + 0.2vw);
  color: #333134;
  margin-top: 10px;
  margin-bottom: 30px;
@@ -49,7 +49,7 @@ body {
 
 .homeLinks{
  font-family: "SurveyorLight", sans-serif;
- font-size: calc(24px + 0.3vw);
+ font-size: calc(20px + 0.3vw);
  color: #333134;
  text-decoration: underline;
  text-decoration-thickness: 1px;
@@ -72,7 +72,7 @@ body {
 
 .bottomLink{
  font-family: "SurveyorLight", sans-serif;
- font-size: calc(18px + 0.4vw);
+ font-size: calc(15px + 0.3vw);
  color: #333134;
  text-decoration: underline;
  text-decoration-thickness: 1px;
@@ -84,13 +84,14 @@ body {
 .creditText{
 color: #7C7282;
 font-weight: 600;
-margin-top: 20px;
+margin-top: 16px;
+font-size: 14px;
 }
 
 
 .ArtistName{
  font-family: "SurveyorReg", sans-serif;
- font-size: calc(45px + 3vw);
+ font-size: calc(36px + 3vw);
 
  line-height: 0.7;
 font-weight: 100;
@@ -105,6 +106,31 @@ color: #333134;
   overflow-x: hidden;
   background: #ffffff;
 }
+
+.scrollbox::-webkit-scrollbar {
+  width: 12px;          /* width of vertical scrollbar */
+  height: 12px;         /* height of horizontal scrollbar */
+}
+
+/* The draggable thumb */
+.scrollbox::-webkit-scrollbar-thumb {
+  background-color: #9D8260;   /* color of the thumb */
+  border-radius: 6px;       /* round corners */
+  border: 3px solid #f1f1f1;   /* creates padding around thumb */
+}
+
+/* Scrollbar track (background) */
+.scrollbox::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+/* Optional: scrollbar on hover */
+.scrollbox::-webkit-scrollbar-thumb:hover {
+  background-color: #63513c;
+}
+
+
 
 .scrollbox.small {
   width: 50vw;
@@ -162,7 +188,7 @@ aspect-ratio: 6 / 8;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 10px;
 }
 
 .cell img {
@@ -198,7 +224,7 @@ aspect-ratio: 6 / 8;
   margin-top: 20px;
   margin-left: 20px;
    margin-right: 20px;
-  font-size: 30px;
+  font-size: 24px;
   color: white;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -218,7 +244,7 @@ aspect-ratio: 6 / 8;
     margin-bottom: 20px;
     opacity: 0;
     transition: opacity 0.2s ease;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .cell:hover .details {
@@ -276,7 +302,7 @@ background-color: rgba(0,0,0,0.5);
 
 .artworkPageTitle {
   font-family: "SurveyorLight", sans-serif;
-  font-size: calc(60px + 0.5vw);
+  font-size: calc(50px + 0.5vw);
  
   color: #333134;
   text-align: left;               /* left-align text */
@@ -305,7 +331,7 @@ background-color: rgba(0,0,0,0.5);
 
 .artworkMeta {
   font-family: "SurveyorLight", sans-serif;
-  font-size: calc(16px + 0.3vw);
+  font-size: calc(12px + 0.3vw);
   color: #666;
   text-align: right;              /* right-align text */
 }
@@ -337,6 +363,33 @@ background-color: rgba(0,0,0,0.5);
   
   
 }
+
+
+.artworkScrollContent::-webkit-scrollbar {
+  width: 12px;          /* width of vertical scrollbar */
+  height: 12px;         /* height of horizontal scrollbar */
+}
+
+/* The draggable thumb */
+.artworkScrollContent::-webkit-scrollbar-thumb {
+  background-color: #9D8260;   /* color of the thumb */
+  border-radius: 6px;       /* round corners */
+  border: 3px solid #f1f1f1;   /* creates padding around thumb */
+}
+
+/* Scrollbar track (background) */
+.artworkScrollContent::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+/* Optional: scrollbar on hover */
+.artworkScrollContent::-webkit-scrollbar-thumb:hover {
+  background-color: #63513c;
+}
+
+
+
 
 .artworkBottomPanel {
   position: sticky;
@@ -375,7 +428,7 @@ background-color: rgba(0,0,0,0.5);
 .artworkBottomPanel button {
     color: #9D8260;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 11px;
     padding: 8px 0px;
     cursor: pointer;
     background: rgba(0, 0, 0, 0);
@@ -399,7 +452,7 @@ background-color: rgba(0,0,0,0.5);
 }
 .navTitle{
     font-weight: normal;
-    font-size: 23px;
+    font-size: 20px;
     font-family: "SurveyorLight", sans-serif;
     color: #333134 ;
 }

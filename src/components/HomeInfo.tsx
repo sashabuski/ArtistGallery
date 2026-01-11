@@ -19,7 +19,7 @@ const HomeInfo = () => {
         <div className="bottomLink">Contact</div>
       </div>
       <div className="creditText">
-        Copyright © 2026 R.J. Domino. Site by Sasha Buskin
+        Copyright © 2026 R.J. Domino. Site by Sasha Buskin.
       </div>
     </>
   );
