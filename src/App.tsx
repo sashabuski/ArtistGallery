@@ -12,7 +12,8 @@ function AppRoutes() {
     <>
       <Home />
       <Routes>
-        <Route path="/artwork/:id" element={<ArtworkPage />} />
+        <Route path="/artwork/:id" element={<ArtworkPage source="artwork" />} />
+        <Route path="/photo/:id" element={<ArtworkPage source="photo" />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/journal" element={<JournalPage />} />
         <Route path="/video" element={<VideoPage />} />

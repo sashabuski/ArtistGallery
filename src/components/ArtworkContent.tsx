@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface ArtworkContentProps {
+  source: "artwork" | "photo"; 
   imageSrc?: string;
   onClose: () => void;
   onNext?: () => void;
@@ -14,6 +15,7 @@ interface ArtworkContentProps {
 }
 
 const ArtworkContent: React.FC<ArtworkContentProps> = ({
+  source,
   imageSrc,
   onNext,
   onPrev,
@@ -40,17 +42,26 @@ const ArtworkContent: React.FC<ArtworkContentProps> = ({
     onPrev?.();
   };
 
+  const displayDimension =
+    source === "artwork" && dimension
+      ? dimension.replace(/(\d+)\s*x\s*(\d+)/, "$1cm x $2cm")
+      : dimension;
+
   return (
     <>
       <div className="artworkPanel">
         <div className="artworkContainer">
           <div className="artworkScrollContent" ref={scrollRef}>
+            <div className="categoryText">
+                 {source === "photo" ? "PHOTOGRAPHY" : "ARTWORK"}
+            </div>
             <div className="artworkHeaderContainer">
+             
               <div className="pageTitle">{title}</div>
-              {(dimension || medium) && (
+              {(displayDimension || medium) && (
                 <div className="artworkMeta">
-                  {dimension}
-                  {dimension && medium && <br />}
+                  {displayDimension}
+                  {displayDimension && medium && <br />}
                   {medium}
                 </div>
               )}

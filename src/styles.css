@@ -60,6 +60,7 @@ body {
  cursor: pointer;
  align-self: flex-start;
  width: fit-content;
+  transition: color 200ms ease;
 }
 
 .bottomLinksBox{
@@ -85,7 +86,7 @@ body {
 color: #7C7282;
 font-weight: 600;
 margin-top: 16px;
-font-size: 14px;
+font-size: 13px;
 }
 
 
@@ -344,6 +345,20 @@ background-color: rgba(0,0,0,0.5);
   font-display: block;
 }
 
+@font-face {
+  font-family: "Cap";
+  src: url("/src/assets/fonts/TT.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+.categoryText{
+font-size: 15px;
+font-family: Cap, sans-serif;
+color: #9D8260;
+font-weight: bold;
+}
 
 .artworkScrollContent {
   overflow-y: auto;
@@ -351,7 +366,7 @@ background-color: rgba(0,0,0,0.5);
   display: block; 
   padding-left: calc(25vw - 100px);
   padding-right: calc(25vw - 100px);
-  padding-top: 50px;
+  padding-top: 35px;
   
   
 }
@@ -412,7 +427,7 @@ background-color: rgba(0,0,0,0.5);
 .artworkBottomPanel button {
     color: #9D8260;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 10px;
     padding: 8px 0px;
     cursor: pointer;
     background: rgba(0, 0, 0, 0);
@@ -425,7 +440,8 @@ background-color: rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;  
   align-items: flex-start; 
-  gap: 4px;                
+  gap: 4px;      
+  font-family: Cap, sans-serif;          
 }
 
 .nextButton {
@@ -433,6 +449,7 @@ background-color: rgba(0,0,0,0.5);
   flex-direction: column;  
   align-items: flex-end;  
   gap: 4px;
+  font-family: Cap, sans-serif;
 }
 .navTitle{
     font-weight: normal;
@@ -441,7 +458,14 @@ background-color: rgba(0,0,0,0.5);
     color: #333134 ;
 }
 
+.pageText{
+     font-family: "SurveyorLight", sans-serif;
+     font-size: 20px;
+}
 
+.top{
+ margin-top: 30px;
+}
 
 .col-0 .cell { background: #ffffff; }
 .col-1 .cell { background: #ffffff; color:#000; }
@@ -449,3 +473,9 @@ background-color: rgba(0,0,0,0.5);
 .col-3 .cell { background: #ffffff; }
 .col-4 .cell { background: #ffffff; }
 .col-5 .cell { background: #ffffff; color:#000; }
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}

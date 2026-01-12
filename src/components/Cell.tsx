@@ -5,9 +5,18 @@ interface CellProps {
   title: string;
   dimension: string;
   medium: string;
+  fadeDelay?: number; 
+  source: "artwork" | "photo"; 
 }
 
-const Cell: React.FC<CellProps> = ({ src, title, dimension, medium }) => {
+const Cell: React.FC<CellProps> = ({
+  src,
+  title,
+  dimension,
+  medium,
+  fadeDelay = 0,
+  source,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -15,10 +24,15 @@ const Cell: React.FC<CellProps> = ({ src, title, dimension, medium }) => {
     <div
       className="cell"
       onClick={() =>
-        navigate(`/artwork/${title}`, {
+        navigate(`/${source}/${title}`, {
           state: { background: location },
         })
       }
+      style={{
+        opacity: 0, 
+        animation: `fadeIn 400ms ease forwards`,
+        animationDelay: `${fadeDelay}ms`,
+      }}
     >
       <img src={src} alt={title} />
 
