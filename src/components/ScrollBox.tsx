@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Grid from "./Grid";
 
-const GAP = 16;
+const GAP = 12;
 
 const ROW_PRESETS: Record<number, number[]> = {
   6: [14, 9, 18, 5, 7, 15],

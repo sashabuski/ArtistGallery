@@ -100,8 +100,8 @@ color: #333134;
 
 .scrollbox {
  
-  height: calc(100vh - 32px);
-  margin: 16px 12px 16px 0; 
+  height: calc(100vh - 24px);
+  margin: 12px 12px 12px 0; 
   overflow-y: auto;
   overflow-x: hidden;
   background: #ffffff;
@@ -154,7 +154,7 @@ color: #333134;
 .grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 16px;
+  gap: 12px;
   padding-right: 0px;
   height: 100%;
 }
@@ -162,7 +162,7 @@ color: #333134;
 .column {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   will-change: transform;
 }
 
@@ -294,7 +294,7 @@ background-color: rgba(0,0,0,0.5);
   gap: 10px;             
 }
 
-.artworkPageTitle {
+.pageTitle {
   font-family: "SurveyorLight", sans-serif;
   font-size: calc(50px + 0.5vw);
  
@@ -333,7 +333,7 @@ background-color: rgba(0,0,0,0.5);
   src: url("/src/assets/fonts/SurveyorLight.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -341,7 +341,7 @@ background-color: rgba(0,0,0,0.5);
   src: url("/src/assets/fonts/SurveyorReg.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 

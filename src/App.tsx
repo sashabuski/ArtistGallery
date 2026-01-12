@@ -1,20 +1,23 @@
-import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./routes/Home";
 import ArtworkPage from "./routes/ArtworkPage";
+import AboutPage from "./routes/AboutPage";
+import JournalPage from "./routes/JournalPage";
+import VideoPage from "./routes/VideoPage";
+import ArchivePage from "./routes/ArchivePage";
+import ContactPage from "./routes/ContactPage";
 
 function AppRoutes() {
-  const navigate = useNavigate();
-
   return (
     <>
-
       <Home />
-
       <Routes>
-        <Route
-          path="/artwork/:id"
-          element={<ArtworkPage onClose={() => navigate("/")} />}
-        />
+        <Route path="/artwork/:id" element={<ArtworkPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/journal" element={<JournalPage />} />
+        <Route path="/video" element={<VideoPage />} />
+        <Route path="/archive" element={<ArchivePage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </>
   );

@@ -46,7 +46,7 @@ const ArtworkContent: React.FC<ArtworkContentProps> = ({
         <div className="artworkContainer">
           <div className="artworkScrollContent" ref={scrollRef}>
             <div className="artworkHeaderContainer">
-              <div className="artworkPageTitle">{title}</div>
+              <div className="pageTitle">{title}</div>
               {(dimension || medium) && (
                 <div className="artworkMeta">
                   {dimension}
