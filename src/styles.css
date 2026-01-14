@@ -193,12 +193,16 @@ aspect-ratio: 6 / 8;
   object-fit: cover;   
   object-position: center;
   display: block;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 400ms ease;
   cursor: pointer;
-
+ opacity: 0;
     will-change: transform;
   backface-visibility: hidden;
   transform: translateZ(0);
+}
+
+.cell img.img-loaded {
+  opacity: 1;
 }
 
 .cell:hover img {
@@ -284,6 +288,14 @@ background-color: rgba(0,0,0,0.5);
   opacity: 1;
 }
 
+.artworkScrollContent {
+    overflow-y: auto;
+    flex: 1 1 auto;
+    display: block;
+    padding-left: calc(25vw - 100px);
+    padding-right: calc(25vw - 100px);
+    padding-top: 60px;
+}
 
 .artworkLayout.portrait .artworkContainer {
   display: flex;            
@@ -316,6 +328,17 @@ background-color: rgba(0,0,0,0.5);
   flex-direction: column;
   height: 100%;
 }
+
+.pageTitle {
+  font-family: "SurveyorLight", sans-serif;
+  font-size: calc(50px + 0.5vw);
+  color: #333134;
+  text-align: left;    
+  line-height: 0.9;  
+  text-align: left;           
+}
+
+
 
 .artworkLayout.portrait .pageTitle {
   font-family: "SurveyorLight", sans-serif;
@@ -409,7 +432,8 @@ background-color: rgba(0,0,0,0.5);
   font-family: "SurveyorLight", sans-serif;
   font-size: calc(50px + 0.5vw);
   color: #333134;
-  text-align: left;             
+  text-align: left;    
+  line-height: 0.9;           
 }
 
 .artworkLayout.landscape .artworkHeaderContainer {
@@ -462,7 +486,7 @@ font-weight: bold;
 
 @font-face {
   font-family: "SurveyorLight";
-  src: url("/src/assets/fonts/SurveyorLight.otf") format("opentype");
+  src: url("/ArtistGallery/fonts/SL.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -470,7 +494,7 @@ font-weight: bold;
 
 @font-face {
   font-family: "SurveyorReg";
-  src: url("/src/assets/fonts/SurveyorReg.otf") format("opentype");
+  src: url("/ArtistGallery/fonts/SL.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -478,7 +502,7 @@ font-weight: bold;
 
 @font-face {
   font-family: "Cap";
-  src: url("/src/assets/fonts/TT.ttf") format("truetype");
+  src: url("/ArtistGallery/fonts/TT.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: block;

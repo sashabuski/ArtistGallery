@@ -1,4 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from "react";
 
 interface CellProps {
   src: string;
@@ -19,7 +20,7 @@ const Cell: React.FC<CellProps> = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const [loaded, setLoaded] = useState(false);
   return (
     <div
       className="cell"
@@ -34,7 +35,12 @@ const Cell: React.FC<CellProps> = ({
         animationDelay: `${fadeDelay}ms`,
       }}
     >
-      <img src={src} alt={title} />
+     <img
+  className={loaded ? "img-loaded" : ""}
+  src={src}
+  alt={title}
+  onLoad={() => setLoaded(true)}
+/>
 
       <div className="overlay">
         <div className="title">{title}</div>
